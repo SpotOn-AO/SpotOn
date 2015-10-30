@@ -126,7 +126,11 @@ $(function () {
 
     $widget.loading($('.countdown'));
 
-    $.getJSON("http://wouter075.nl/rooster/2/vakanties.php", function(data){
+    $.ajax({
+        url : "https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays?output=json",
+        datatype : 'json',
+        crossDomain : true,
+        success : function(data){
         var $countdown = $('.countdown'),
             now        = moment(new Date()),
             closest    = {
@@ -134,21 +138,23 @@ $(function () {
                 obj: {}
             };
 
-        $.map(data, function(date, name){
-            var date = date.split(' t/m '),
-                start = moment(date[0], 'DD-MM-YYYY');
+        $.each(data, function(index, value){
+            var holidays = value.content[0].vacations;
+            $.each(holidays, function(index2, value2){
+                var start = moment(value2.regions[0].startdate.substring(0, value2.regions[0].startdate.indexOf('T')), 'YYYY-MM-DD');
 
-            // Holiday is yet to come
-            if(start.isAfter(now)){
-                // Get closest holiday
-                var difference = start.unix() - now.unix();
+                // Holiday is yet to come
+                if(start.isAfter(now)){
+                    // Get closest holiday
+                    var difference = start.unix() - now.unix();
 
-                if(!closest.diff || difference < closest.diff){
-                    closest.diff = difference;
-                    closest.obj.name = name;
-                    closest.obj.date = [start, moment(date[1], 'DD-MM-YYYY')];
+                    if(!closest.diff || difference < closest.diff){
+                        closest.diff = difference;
+                        closest.obj.name = value2.type;
+                        closest.obj.date = [start, moment(value2.regions[0].enddate.substring(0, value2.regions[0].enddate.indexOf('T')), 'DD-MM-YYYY')];
+                    }
                 }
-            }
+            });
         });
 
         $countdown.find('.title').text(closest.obj.name);
@@ -178,9 +184,9 @@ $(function () {
 
         timer();
 
-        $widget.done($countdown);
-    }, function(){
-        $widget.error($('.countdown'));
+        $widget.done($countdown);}
+    //}, function(){
+        //$widget.error($('.countdown'));
     });
 
     function YahooWeatherCodeToString(code) {
@@ -258,7 +264,7 @@ $(function () {
             case 0:
             case 1:
             case 2:
-                return "/assets/img/weather/10.jpg";
+                return "/img/weather/10.jpg";
             case 3:
             case 4:
             case 37:
@@ -266,20 +272,20 @@ $(function () {
             case 39:
             case 45:
             case 47:
-                return "/assets/img/weather/11.jpg";
+                return "/img/weather/11.jpg";
             case 5:
             case 6:
             case 7:
             case 8:
             case 10:
             case 18:
-                return "/assets/img/weather/13.jpg";
+                return "/img/weather/13.jpg";
             case 9:
-                return "/assets/img/weather/04.jpg";
+                return "/img/weather/04.jpg";
             case 11:
             case 12:
             case 40:
-                return "/assets/img/weather/10.jpg";
+                return "/img/weather/10.jpg";
             case 13:
             case 14:
             case 15:
@@ -287,34 +293,34 @@ $(function () {
             case 42:
             case 43:
             case 46:
-                return "/assets/img/weather/13.jpg";
+                return "/img/weather/13.jpg";
             case 17:
-                return "/assets/img/weather/10.jpg";
+                return "/img/weather/10.jpg";
             case 19:
             case 20:
             case 21:
             case 22:
-                return "/assets/img/weather/50.jpg";
+                return "/img/weather/50.jpg";
             case 23:
             case 24:
             case 26:
             case 27:
             case 28:
-                return "/assets/img/weather/04.jpg";
+                return "/img/weather/04.jpg";
             case 25:
             case 31:
             case 32:
             case 36:
-                return "/assets/img/weather/01.jpg";
+                return "/img/weather/01.jpg";
             case 29:
             case 30:
             case 44:
-                return "/assets/img/weather/03.jpg";
+                return "/img/weather/03.jpg";
             case 33:
             case 34:
-                return "/assets/img/weather/02.jpg";
+                return "/img/weather/02.jpg";
             case 35:
-                return "/assets/img/weather/09.jpg";
+                return "/img/weather/09.jpg";
 
             default:
                 return "Niet beschikbaar";

@@ -1,17 +1,16 @@
-@extends('front.main')
 
-@section('title')
+<?php $__env->startSection('title'); ?>
     SYNC
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-md-8">
-            @include('partials.front.featured')
+            <?php echo $__env->make('partials.front.featured', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
 
         <div class="col-md-4">
-            @include('partials.front.weather')
+            <?php echo $__env->make('partials.front.weather', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
     </div>
 
@@ -22,58 +21,58 @@
                 <h2 class="panel-title">
                     <span class="glyphicon glyphicon-cog pull-left">&nbsp;</span>
                     Workshops
-                    @if(ceil(count($workshops) / 3) > 1)
+                    <?php if(ceil(count($workshops) / 3) > 1): ?>
                         <ol class="carousel-indicators pull-right">
-                            @for($i = 0; $i < (ceil(count($workshops) / 3)); $i++)
-                            @if($i === 0)
-                            <li data-target="#ws-carousel" class="active" data-slide-to="{{ $i }}"></li>
-                            @else
-                            <li data-target="#ws-carousel" data-slide-to="{{ $i }}"></li>
-                            @endif
-                            @endfor
+                            <?php for($i = 0; $i < (ceil(count($workshops) / 3)); $i++): ?>
+                            <?php if($i === 0): ?>
+                            <li data-target="#ws-carousel" class="active" data-slide-to="<?php echo $i; ?>"></li>
+                            <?php else: ?>
+                            <li data-target="#ws-carousel" data-slide-to="<?php echo $i; ?>"></li>
+                            <?php endif; ?>
+                            <?php endfor; ?>
                         </ol>
-                    @endif
+                    <?php endif; ?>
                 </h2>
             </div>
 
                 <div class="carousel-inner">
                     <?php $i = 0; $first = true;?>
-                    @foreach($workshops as $item)
-                        @if($first === true)
+                    <?php foreach($workshops as $item): ?>
+                        <?php if($first === true): ?>
                             <?php $first = false; ?>
                             <div class="item active">
-                        @elseif($i === 0)
+                        <?php elseif($i === 0): ?>
                             <div class="item">
-                        @endif
+                        <?php endif; ?>
                             <section class="list-group-item">
                                 <h1 class="list-group-item-heading ellipsis">
-                                    {{ link_to_route('workshops', $item->title, array($item->id, $item->webTitle)) }}
+                                    <?php echo link_to_route('workshops', $item->title, array($item->id, $item->webTitle)); ?>
                                 </h1>
 				<img src="/uploads/dBn4N3hb06.png">
-                               <!-- <img class="pull-right" src="http://chart.googleapis.com/chart?cht=qr&chs=100&choe=UTF-8&chld=H&chl={{ url('workshops', $item->id) }}" alt="QR link"/> -->
+                               <!-- <img class="pull-right" src="http://chart.googleapis.com/chart?cht=qr&chs=100&choe=UTF-8&chld=H&chl=<?php echo url('workshops', $item->id); ?>" alt="QR link"/> -->
                                 <div class="media-body screen-excerpt">
                                     <p>
-                                        {{ $item->excerpt }}
+                                        <?php echo $item->excerpt; ?>
                                     </p>
                                 </div>
                             </section>
 
-                        @if($i === 2)
+                        <?php if($i === 2): ?>
                             </div>
                             <?php $i = -1; ?>
-                        @endif
+                        <?php endif; ?>
                         <?php $i++; ?>
-                    @endforeach
-                    @if(count($workshops) % 3 !== 0)
+                    <?php endforeach; ?>
+                    <?php if(count($workshops) % 3 !== 0): ?>
                        <?php $i = 3 - (count($workshops) % 3); ?>
-                            @for(; $i > 0; $i--)
+                            <?php for(; $i > 0; $i--): ?>
                                 <section class="list-group-item">
                                     <h1 class="list-group-item-heading">&nbsp;</h1>
                                     <div class="screen-excerpt"></div>
                                 </section>
-                            @endfor
+                            <?php endfor; ?>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -86,20 +85,20 @@
                     </h2>
                 </div>
                 <div class="list-group">
-                    @foreach($notes as $item)
+                    <?php foreach($notes as $item): ?>
                     <section class="list-group-item">
                         <h1 class="list-group-item-heading ellipsis">
-                            {{ link_to_route('news', $item->title, array($item->id, $item->webTitle)) }}
+                            <?php echo link_to_route('news', $item->title, array($item->id, $item->webTitle)); ?>
                         </h1>
 			<img src="/uploads/dBn4N3hb06.png">
-                       <!-- <img class="pull-right" src="http://chart.googleapis.com/chart?cht=qr&chs=100&choe=UTF-8&chld=H&chl={{ url('news', $item->id) }}" alt="QR link"/> -->
+                       <!-- <img class="pull-right" src="http://chart.googleapis.com/chart?cht=qr&chs=100&choe=UTF-8&chld=H&chl=<?php echo url('news', $item->id); ?>" alt="QR link"/> -->
                         <div class="media-body screen-excerpt">
                             <p>
-                                {{ $item->excerpt }}
+                                <?php echo $item->excerpt; ?>
                             </p>
                         </div>
                     </section>
-                    @endforeach
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -113,22 +112,24 @@
                     </h2>
                 </div>
                 <div class="list-group">
-                    @foreach($news as $item)
+                    <?php foreach($news as $item): ?>
                     <section class="list-group-item">
                         <h1 class="list-group-item-heading ellipsis">
-                            {{ link_to_route('news', $item->title, array($item->id, $item->webTitle)) }}
+                            <?php echo link_to_route('news', $item->title, array($item->id, $item->webTitle)); ?>
                         </h1>
 			<img src="/uploads/dBn4N3hb06.png">
-                       <!-- <img class="pull-right" src="http://chart.googleapis.com/chart?cht=qr&chs=100&choe=UTF-8&chld=H&chl={{ url('news', $item->id) }}" alt="QR link"/> -->
+                       <!-- <img class="pull-right" src="http://chart.googleapis.com/chart?cht=qr&chs=100&choe=UTF-8&chld=H&chl=<?php echo url('news', $item->id); ?>" alt="QR link"/> -->
                         <div class="media-body screen-excerpt">
                             <p>
-                                {{ $item->excerpt }}
+                                <?php echo $item->excerpt; ?>
                             </p>
                         </div>
                     </section>
-                    @endforeach
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
     </div>
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('front.main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

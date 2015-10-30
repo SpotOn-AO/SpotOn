@@ -6,8 +6,8 @@
     <meta name="viewport" content="minimum-scale=1.0, width=device-width, maximum-scale=1.0, user-scalable=no">
 
     <title>@yield('title') &ndash; SYNC</title>
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/assets/css/front-end.css" rel="stylesheet" />
+    {{ HTML::style("css/bootstrap.min.css") }}
+    {{ HTML::style("css/front-end.css") }}
     <link rel="shortcut icon" type="image/x-icon" href="/refresh.ico"/>
     
     <!--[if lt IE 9]>
@@ -24,12 +24,11 @@
         @yield('content')
     </div>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="/assets/js/jquery.js"><\/script>')</script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/front-end.js" ></script>
-    <script src="/assets/js/moment/moment.min.js"></script>
-    <script src="/assets/js/moment/nl.js"></script>
+    {{ HTML::script("https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js") }}
+    {{ HTML::script("js/bootstrap.min.js") }}
+    {{ HTML::script("js/front-end.js") }}
+    {{ HTML::script("js/moment/moment.min.js") }}
+    {{ HTML::script("js/moment/nl.js") }}
     @yield('script')
 </body>
 </html>
