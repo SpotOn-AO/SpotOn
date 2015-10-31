@@ -77,7 +77,7 @@ class WorkshopController extends \BaseController {
             {
                 $filename = $workshop->featured_image = Str::random(10) . '.' . $input['featured_image']->guessExtension();
 
-                $input['featured_image']->move(base_path('assets/uploads'), $filename);
+                $input['featured_image']->move(base_path('public/uploads'), $filename);
 
                 $workshop->featured_visible = true;
             }
@@ -163,7 +163,7 @@ class WorkshopController extends \BaseController {
             {
                 $filename = $workshop->featured_image = Str::random(10) . '.' . $input['featured_image']->guessExtension();
 
-                $input['featured_image']->move(base_path('assets/uploads'), $filename);
+                $input['featured_image']->move(base_path('public/uploads'), $filename);
 
                 $workshop->featured_visible = true;
             }

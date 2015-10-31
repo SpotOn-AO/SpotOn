@@ -24,7 +24,7 @@
                         <div id="carousel-{{ $item->id }}" class="carousel slide pull-right hidden-xs" data-ride="carousel">
                             <div>
                                 <div class="item text-center">
-                                    <img src="/assets/uploads/{{ $item->featured_image }}" />
+                                    <img src="/uploads/{{ $item->featured_image }}" />
                                 </div>
                             </div>
                         </div>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="minimum-scale=1.0, width=device-width, maximum-scale=1.0, user-scalable=no">
 
-    <title>@yield('title') &ndash; Admin / SYNC</title>
+    <title><?php echo $__env->yieldContent('title'); ?> &ndash; Admin / SYNC</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/css/datetimepicker.min.css" rel="stylesheet" />
     <link href="/css/backend.css" rel="stylesheet" />
@@ -17,20 +17,20 @@
     <![endif]-->
 </head>
 <body>
-    @include('partials.back.topnav')
+    <?php echo $__env->make('partials.back.topnav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
     <aside class="sidebar hidden-xs">
         <div class="user">
-            <p>{{{ $user->firstname }}} {{{ $user->lastname }}}</p>
-            <p>{{{ $user->email }}}</p>
+            <p><?php echo e($user->firstname); ?> <?php echo e($user->lastname); ?></p>
+            <p><?php echo e($user->email); ?></p>
         </div>
 
-        @include('partials.back.sidebar')
+        <?php echo $__env->make('partials.back.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     </aside>
 
     <div class="content">
         <div class="container-fluid">
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
         </div>
     </div>
 
@@ -38,6 +38,6 @@
     <script>window.jQuery || document.write('<script src="/js/jquery.js"><\/script>')</script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/backend.js" ></script>
-    @yield('script')
+    <?php echo $__env->yieldContent('script'); ?>
 </body>
 </html>

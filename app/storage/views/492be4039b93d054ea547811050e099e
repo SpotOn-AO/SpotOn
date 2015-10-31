@@ -24,7 +24,7 @@
                         <div id="carousel-<?php echo $item->id; ?>" class="carousel slide pull-right hidden-xs" data-ride="carousel">
                             <div>
                                 <div class="item text-center">
-                                    <img src="/assets/uploads/<?php echo $item->featured_image; ?>" />
+                                    <img src="/uploads/<?php echo $item->featured_image; ?>" />
                                 </div>
                             </div>
                         </div>
