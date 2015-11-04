@@ -126,11 +126,7 @@ $(function () {
 
     $widget.loading($('.countdown'));
 
-    $.ajax({
-        url : "https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays?output=json",
-        datatype : 'json',
-        crossDomain : true,
-        success : function(data){
+    $.getJSON("http://novaict.nl/rooster/2/vakanties.php", function(data){
         var $countdown = $('.countdown'),
             now        = moment(new Date()),
             closest    = {
@@ -138,23 +134,22 @@ $(function () {
                 obj: {}
             };
 
-        $.each(data, function(index, value){
-            var holidays = value.content[0].vacations;
-            $.each(holidays, function(index2, value2){
-                var start = moment(value2.regions[0].startdate.substring(0, value2.regions[0].startdate.indexOf('T')), 'YYYY-MM-DD');
+        $.map(data, function(date, name){
+            var date = date.split(' t/m '),
+                start = moment(date[0], 'DD MMMMM YYYY');
 
-                // Holiday is yet to come
-                if(start.isAfter(now)){
-                    // Get closest holiday
-                    var difference = start.unix() - now.unix();
+            console.log(start);
+            // Holiday is yet to come
+            if(start.isAfter(now)){
+                // Get closest holiday
+                var difference = start.unix() - now.unix();
 
-                    if(!closest.diff || difference < closest.diff){
-                        closest.diff = difference;
-                        closest.obj.name = value2.type;
-                        closest.obj.date = [start, moment(value2.regions[0].enddate.substring(0, value2.regions[0].enddate.indexOf('T')), 'DD-MM-YYYY')];
-                    }
+                if(!closest.diff || difference < closest.diff){
+                    closest.diff = difference;
+                    closest.obj.name = name;
+                    closest.obj.date = [start, moment(date[1], 'DD MMMMM YYYY')];
                 }
-            });
+            }
         });
 
         $countdown.find('.title').text(closest.obj.name);
@@ -184,9 +179,9 @@ $(function () {
 
         timer();
 
-        $widget.done($countdown);}
-    //}, function(){
-        //$widget.error($('.countdown'));
+        $widget.done($countdown);
+    }, function(){
+        $widget.error($('.countdown'));
     });
 
     function YahooWeatherCodeToString(code) {
