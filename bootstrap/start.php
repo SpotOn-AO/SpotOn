@@ -26,8 +26,10 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('your-machine-name'),
+	'production' => array('nunova'),
 	'mark' => array('Mighty-1', 'Zen-KwawK'),
+	'wesley' => array('DESKTOP-Wesley'),
+	'carlo' => array('PC_C_BOS'),
 
 ));
 
