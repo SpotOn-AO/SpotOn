@@ -126,62 +126,70 @@ $(function () {
 
     $widget.loading($('.countdown'));
 
-    $.getJSON("http://novaict.nl/rooster/2/vakanties.php", function(data){
-        var $countdown = $('.countdown'),
+    $.ajax({
+        url : "https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays?output=json",
+        datatype : 'json',
+        success : function(data) {
+            var $countdown = $('.countdown'),
             now        = moment(new Date()),
             closest    = {
                 diff: null,
                 obj: {}
             };
+            //console.log(data);
 
-        $.map(data, function(date, name){
-            var date = date.split(' t/m '),
-                start = moment(date[0], 'DD MMMMM YYYY');
+            $.each(data, function(index, value) {
+                var holidays = value.content[0].vacations;
+                $.each(holidays, function(index2, value2) {
+                    console.log(value2);
+                    var start = moment(value2.regions[0].startdate.substring(0, value2.regions[0].startdate.indexOf('T')), 'YYYY-MM-DD');
+            
+                    console.log(start);
+                    // Holiday is yet to come
+                    if(start.isAfter(now)){
+                        // Get closest holiday
+                        var difference = start.unix() - now.unix();
 
-            console.log(start);
-            // Holiday is yet to come
-            if(start.isAfter(now)){
-                // Get closest holiday
-                var difference = start.unix() - now.unix();
+                        if(!closest.diff || difference < closest.diff){
+                            closest.diff = difference;
+                            closest.obj.name = value2.type;
+                            closest.obj.date = [start, moment(value2.regions[0].enddate.substring(0, value2.regions[0].enddate.indexOf('T')), 'YYYY-MM-DD')];
+                        }
+                    }
+                });
+            });
 
-                if(!closest.diff || difference < closest.diff){
-                    closest.diff = difference;
-                    closest.obj.name = name;
-                    closest.obj.date = [start, moment(date[1], 'DD MMMMM YYYY')];
-                }
+            $countdown.find('.title').text(closest.obj.name);
+
+            // Has an end date
+            if(closest.obj.date[1].isValid()){
+                var start = closest.obj.date[0].format('DD MMMM'),
+                    end = closest.obj.date[1].format('DD MMMM'),
+                    description = start + ' &ndash; ' + end;
+            } else {
+                description = closest.obj.date[0].format('DD MMMM')
             }
-        });
+            $countdown.find('.description').html(description);
 
-        $countdown.find('.title').text(closest.obj.name);
+            var timer = function(){
+                var start = closest.obj.date[0],
+                    days = start.diff(Date.now(), 'days'),
+                    time = start.clone().subtract(Date.now());
 
-        // Has an end date
-        if(closest.obj.date[1].isValid()){
-            var start = closest.obj.date[0].format('DD MMMM'),
-                end = closest.obj.date[1].format('DD MMMM'),
-                description = start + ' &ndash; ' + end;
-        } else {
-            description = closest.obj.date[0].format('DD MMMM')
+                days += (days == '1') ? ' dag' : ' dagen';
+
+                $countdown.find('.days').text(days);
+                $countdown.find('.time').text(time.format('HH:mm:ss'));
+
+                setTimeout(timer, 1000);
+            }
+
+            timer();
+
+            $widget.done($countdown)
         }
-        $countdown.find('.description').html(description);
-
-        var timer = function(){
-            var start = closest.obj.date[0],
-                days = start.diff(Date.now(), 'days'),
-                time = start.clone().subtract(Date.now());
-
-            days += (days == '1') ? ' dag' : ' dagen';
-
-            $countdown.find('.days').text(days);
-            $countdown.find('.time').text(time.format('HH:mm:ss'));
-
-            setTimeout(timer, 1000);
-        }
-
-        timer();
-
-        $widget.done($countdown);
-    }, function(){
-        $widget.error($('.countdown'));
+    //}, function(){
+        //$widget.error($('.countdown'));
     });
 
     function YahooWeatherCodeToString(code) {
