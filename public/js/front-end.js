@@ -127,9 +127,10 @@ $(function () {
     $widget.loading($('.countdown'));
 
     $.ajax({
-        url : "https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays?output=json",
+        url : "/holidays",
         datatype : 'json',
         success : function(data) {
+            console.log(data);
             var $countdown = $('.countdown'),
             now        = moment(new Date()),
             closest    = {
@@ -142,7 +143,7 @@ $(function () {
                 var holidays = value.content[0].vacations;
                 $.each(holidays, function(index2, value2) {
                     console.log(value2);
-                    var start = moment(value2.regions[0].startdate.substring(0, value2.regions[0].startdate.indexOf('T')), 'YYYY-MM-DD');
+                    var start = moment(value2.regions[0].startdate.substring(0, value2.regions[0].startdate.indexOf('T')), 'YYYY-MM-DD').add(1, 'd');
             
                     console.log(start);
                     // Holiday is yet to come
