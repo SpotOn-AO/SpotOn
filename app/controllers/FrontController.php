@@ -350,16 +350,25 @@ class FrontController extends BaseController {
         ));
     }
 
-    function getHolidays() {
-        $arrContextOptions=array(
-            "ssl"=>array(
-                "verify_peer"=>false,
-                "verify_peer_name"=>false,
-            ),
-        );
+    /**
+     * Get the holidays.
+     *
+     * @return Response
+     */
+    public function getHolidays() {
+        if (Request::ajax()) {
+            $arrContextOptions=array(
+                "ssl"=>array(
+                    "verify_peer"=>false,
+                    "verify_peer_name"=>false,
+                ),
+            );
 
-        $result = file_get_contents("https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays?output=json", false, stream_context_create($arrContextOptions));
+            $result = file_get_contents("https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays?output=json", false, stream_context_create($arrContextOptions));
 
-        return json_decode($result);
+            return json_decode($result);
+        } else {
+            return Redirect::route('home');
+        }
     }
 }
