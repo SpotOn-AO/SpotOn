@@ -1,41 +1,41 @@
 
 <div class="form-group">
-    {{ Form::label('title', 'Titel*') }}
-    {{ Form::text('title', null, array(
+    <?php echo Form::label('title', 'Titel*'); ?>
+    <?php echo Form::text('title', null, array(
         'class' => 'form-control',
         'maxlength' => 100,
         'autofocus',
         'required'
-    )) }}
+    )); ?>
 </div>
 
 <div class="row">
     <div class="col-xs-12 col-sm-9">
         <div class="form-group">
-            {{ Form::label('featured_image', 'Afbeelding') }}
-            {{ Form::file('featured_image', array(
+            <?php echo Form::label('featured_image', 'Afbeelding'); ?>
+            <?php echo Form::file('featured_image', array(
             'class' => 'form-control',
             'accept' => 'image/*'
-            )) }}
+            )); ?>
         </div>
     </div>
     <div class="hidden-xs col-sm-3 preview">
         <b>Huidige afbeelding</b>
         <div class="thumbnail text-center">
-            @if(isset($news) && $news->featured_image && $news->featured_visible)
-                <img class="img-responsive" src="/assets/uploads/{{ $news->featured_image }}" />
-            @elseif(isset($workshop) && $workshop->featured_image && $workshop->featured_visible)
-                <img class="img-responsive" src="/assets/uploads/{{ $workshop->featured_image }}" />
-            @else
+            <?php if(isset($news) && $news->featured_image && $news->featured_visible): ?>
+                <img class="img-responsive" src="/assets/uploads/<?php echo $news->featured_image; ?>" />
+            <?php elseif(isset($workshop) && $workshop->featured_image && $workshop->featured_visible): ?>
+                <img class="img-responsive" src="/assets/uploads/<?php echo $workshop->featured_image; ?>" />
+            <?php else: ?>
                 <span class="glyphicon glyphicon-picture"></span>
                 Geen afbeelding
-            @endif
+            <?php endif; ?>
         </div>
     </div>
 </div>
 
 <div class="form-group">
-    {{ Form::label('text', 'Bericht*') }}
+    <?php echo Form::label('text', 'Bericht*'); ?>
     <div id="text-toolbar">
         <div class="btn-group">
             <a class="btn btn-default" data-wysihtml5-command="bold">
@@ -62,10 +62,10 @@
             </div>
         </div>
     </div>
-    {{ Form::textarea('text', null, array(
+    <?php echo Form::textarea('text', null, array(
         'class' => 'form-control',
         'required'
-    )) }}
+    )); ?>
 </div>
 
 <div class="row">
@@ -73,7 +73,7 @@
         <div class="form-group">
             <div class="checkbox">
                 <label>
-                    {{ Form::checkbox('is_featured') }}
+                    <?php echo Form::checkbox('is_featured'); ?>
                     Dit is een uitgelicht artikel
                 </label>
             </div>
@@ -83,7 +83,7 @@
         <div class="form-group">
             <div class="checkbox">
                 <label>
-                    {{ Form::checkbox('is_screen') }}
+                    <?php echo Form::checkbox('is_screen'); ?>
                     Dit artikel verschijnt op het nieuws-scherm
                 </label>
             </div>
@@ -94,10 +94,10 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="form-group">
-            {{ Form::label('shows_at', 'Zichtbaar vanaf') }}
-            {{ Form::input('text', 'shows_at', null, array(
+            <?php echo Form::label('shows_at', 'Zichtbaar vanaf'); ?>
+            <?php echo Form::input('text', 'shows_at', null, array(
             'class' => 'form-control'
-            )) }}
+            )); ?>
                 <span class="help-block">
                     Een leeg veld betekent direct zichtbaar.
                 </span>
@@ -105,10 +105,10 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-2">
         <div class="form-group">
-            {{ Form::label('expires_at', 'Verloopt op') }}
-            {{ Form::input('text', 'expires_at', null, array(
+            <?php echo Form::label('expires_at', 'Verloopt op'); ?>
+            <?php echo Form::input('text', 'expires_at', null, array(
             'class' => 'form-control'
-            )) }}
+            )); ?>
                     <span class="help-block">
                         Een leeg veld betekent oneindig houdbaar.
                     </span>

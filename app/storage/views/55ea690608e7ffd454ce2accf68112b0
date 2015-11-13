@@ -1,121 +1,120 @@
-@extends('back.main')
 
-@section('title')
-    {{{ $workshop->title }}} Aanpassen
-@stop
+<?php $__env->startSection('title'); ?>
+    <?php echo e($workshop->title); ?> Aanpassen
+<?php $__env->stopSection(); ?>
 
-@section('topnav')
-    <a href="{{ route('admin.workshops.create') }}" class="btn btn-default navbar-btn">
+<?php $__env->startSection('topnav'); ?>
+    <a href="<?php echo route('admin.workshops.create'); ?>" class="btn btn-default navbar-btn">
         <span class="glyphicon glyphicon-calendar"></span>
         Nieuwe workshop
     </a>
 
-    {{ Form::open(array(
+    <?php echo Form::open(array(
         'route' => array('admin.workshops.destroy', $workshop->id),
         'method' => 'DELETE',
         'class' => 'btn-group navbar-btn'
-    )) }}
+    )); ?>
 
     <button type="submit" class="btn btn-danger">
         <span class="glyphicon glyphicon-trash"></span>
         Verwijderen
     </button>
 
-    {{ Form::close() }}
-@stop
+    <?php echo Form::close(); ?>
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
-    @include('partials.errors')
+    <?php echo $__env->make('partials.errors', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
     <div class="row">
         <div class="col-xs-12">
             <ul class="nav nav-tabs">
                 <li class="active">
-                    {{ link_to_route('admin.workshops.edit', 'Workshop', array($workshop->id)) }}
+                    <?php echo link_to_route('admin.workshops.edit', 'Workshop', array($workshop->id)); ?>
                 </li>
                 <li >
-                    {{ link_to_route('admin.workshops.signups.index', 'Inschrijvingen', array($workshop->id)) }}
+                    <?php echo link_to_route('admin.workshops.signups.index', 'Inschrijvingen', array($workshop->id)); ?>
                 </li>
             </ul>
         </div>
     </div>
-    {{ Form::model($workshop, array(
+    <?php echo Form::model($workshop, array(
         'files' => true,
         'method' => 'PUT',
         'route' => array(
         'admin.workshops.update',
             $workshop->id
         )
-    )) }}
+    )); ?>
 
-    @include('partials.back.form')
+    <?php echo $__env->make('partials.back.form', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
     <fieldset>
         <legend>Workshop details</legend>
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group">
-                    {{ Form::label('teacher_name', 'Naam leraar*') }}
-                    {{ Form::text('teacher_name', null, array(
+                    <?php echo Form::label('teacher_name', 'Naam leraar*'); ?>
+                    <?php echo Form::text('teacher_name', null, array(
                     'class' => 'form-control',
                     'maxlength' => 100,
                     'required'
-                    )) }}
+                    )); ?>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('teacher_email', 'Email leraar*') }}
-                    {{ Form::email('teacher_email', null, array(
+                    <?php echo Form::label('teacher_email', 'Email leraar*'); ?>
+                    <?php echo Form::email('teacher_email', null, array(
                     'class' => 'form-control',
                     'maxlength' => 255,
                     'required'
-                    )) }}
+                    )); ?>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('location', 'Locatie*') }}
-                    {{ Form::text('location', null, array(
+                    <?php echo Form::label('location', 'Locatie*'); ?>
+                    <?php echo Form::text('location', null, array(
                     'class' => 'form-control',
                     'maxlength' => 50,
                     'required'
-                    )) }}
+                    )); ?>
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-2">
                 <div class="form-group">
-                    {{ Form::label('begins_at', 'Begint op') }}
-                    {{ Form::text('begins_at', null, array(
+                    <?php echo Form::label('begins_at', 'Begint op'); ?>
+                    <?php echo Form::text('begins_at', null, array(
                     'class' => 'form-control'
-                    )) }}
+                    )); ?>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('ends_at', 'Eindigt op') }}
-                    {{ Form::text('ends_at', null, array(
+                    <?php echo Form::label('ends_at', 'Eindigt op'); ?>
+                    <?php echo Form::text('ends_at', null, array(
                     'class' => 'form-control'
-                    )) }}
+                    )); ?>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('max_signups', 'Maximaal aantal deelnemers*') }}
-                    {{ Form::input('number', 'max_signups', null, array(
+                    <?php echo Form::label('max_signups', 'Maximaal aantal deelnemers*'); ?>
+                    <?php echo Form::input('number', 'max_signups', null, array(
                     'class' => 'form-control',
                     'min' => 1,
                     'required'
-                    )) }}
+                    )); ?>
                 </div>
             </div>
         </div>
     </fieldset>
-    {{ Form::submit('Bijwerken', array(
+    <?php echo Form::submit('Bijwerken', array(
         'class' => 'btn btn-primary pull-right'
-    )) }}
-    {{ Form::close() }}
+    )); ?>
+    <?php echo Form::close(); ?>
 	<!-- verplicht veld -->
 	<span class="help-block">
         * Verplicht veld
     </span>
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
     <script src="/js/moment/moment.min.js"></script>
     <script src="/js/moment/nl.js"></script>
     <script src="/js/datetimepicker.min.js"></script>
@@ -160,4 +159,5 @@
         });
         
     </script>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('back.main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
