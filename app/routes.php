@@ -116,7 +116,8 @@ Route::controller('/', 'FrontController', array(
     'getCalls'     => 'calls',
     'getWorkshops' => 'workshops',
     'getCategory'  => 'categories',
-    'getScreen'    => 'screen'
+    'getScreen'    => 'screen',
+    'getHolidays'  => 'holidays'
 ));
 
 // General errors
