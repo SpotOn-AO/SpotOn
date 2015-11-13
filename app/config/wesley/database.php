@@ -6,7 +6,7 @@ return array(
 			'driver' 	=> 'mysql',
 			'host' 		=> 'localhost',
 			'username' 	=> 'root',
-			'database' 	=> 'spoton',
+			'database' 	=> 'nunova',
 			'password' 	=> '',
 			'charset'	=> 'utf8',
 			'collation'	=> 'utf8_unicode_ci',
