@@ -52,7 +52,7 @@ Route::group(array('before' => 'auth', 'prefix' => 'admin'), function ()
      */
     // Users
     Route::resource('users', 'UserController', array(
-        'except' => array('show', 'edit', 'update', 'destroy') // Pretty barebone because we're moving to tango soon
+        'except' => array('show') // Pretty barebone because we're moving to tango soon
     ));
 
     // News
@@ -144,4 +144,3 @@ if(!Config::get('app.debug'))
         return Response::view('404', array(), 404);
     });
 }
-

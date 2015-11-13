@@ -2,7 +2,6 @@
 
 class UserController extends \BaseController
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -107,6 +106,60 @@ class UserController extends \BaseController
             return Redirect::route('admin.users.create')->withInput()->withErrors($validator);
         }
     }
+
+	public function edit($id)
+	{
+		$user = Auth::user();
+        $edit_user = User::find($id);
+
+		$groups = array();
+
+        if(!$user->hasAccess('user.update.Beheerder'))
+        {
+            App::abort(403);
+        }
+
+		foreach (Group::all() as $group)
+        {
+            $groups[$group->id] = $group->name;
+        }
+
+        return View::make('back.user.edit', compact('edit_user', 'groups'));
+	}
+
+	public function update($id)
+	{
+		$user = Auth::user();
+        $edit_user = User::findOrFail($id);
+
+        if(!$user->hasAccess('user.update.Beheerder'))
+        {
+            App::abort(403);
+        }
+
+		$input = Input::all();
+
+        $validator = User::validate($input);
+
+        if ($validator->passes())
+        {
+            // Find group by input id
+            $group = Group::find($input['group_id']);
+
+            // Check if user may create new user in that group
+            if (!$user->hasAccess('user.edit.' . $group->name))
+            {
+                return Redirect::route('admin.users.edit')->withInput()->withErrors('Je mag geen gebruikers van type ' . $group->name . ' maken.');
+            }
+
+			$user = $this->updateUser($user);
+		}
+		else
+        {
+            return Redirect::route('admin.users.edit')->withInput()->withErrors($validator);
+        }
+	}
+
 
     /**
      * Log a User in

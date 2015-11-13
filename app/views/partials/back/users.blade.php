@@ -14,6 +14,7 @@
                 <td>{{{ $item->lastname }}}</td>
                 <td>{{{ $item->email }}}</td>
                 <td>{{ $item->group->name }}</td>
+				<td>{{ link_to_route('admin.users.edit', 'Aanpassen', array($item->id)) }}</td>
             </tr>
         @endforeach
     </tbody>
