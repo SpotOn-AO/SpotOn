@@ -63,7 +63,7 @@
                                         <h1 class="list-group-item-heading ellipsis">
                                             {{ link_to_route('workshops', $item->title, array($item->id, $item->webTitle)) }}
                                         </h1>
-                                        <img class="pull-right" src="http://chart.googleapis.com/chart?cht=qr&chs=100&choe=UTF-8&chld=H&chl={{ url('workshops', $item->id) }}" alt="QR link"/>
+                                        {{ QrCode::size(150)->generate(url('workshops', $item->id)); }}
                                         <div class="media-body screen-excerpt">
                                             <p>
                                                 {{ $item->excerpt }}
@@ -96,7 +96,7 @@
                             <h1 class="list-group-item-heading ellipsis">
                                 {{ link_to_route('news', $item->title, array($item->id, $item->webTitle)) }}
                             </h1>
-                            <img class="pull-right" src="http://chart.googleapis.com/chart?cht=qr&chs=100&choe=UTF-8&chld=H&chl={{ url('news', $item->id) }}" alt="QR link"/>
+                            {{ QrCode::size(150)->generate(url('news', $item->id)); }}
                             <div class="media-body screen-excerpt">
                                 <p>
                                     {{ $item->excerpt }}
@@ -121,7 +121,7 @@
                             <h1 class="list-group-item-heading ellipsis">
                                 {{ link_to_route('news', $item->title, array($item->id, $item->webTitle)) }}
                             </h1>
-                            <img class="pull-right" src="http://chart.googleapis.com/chart?cht=qr&chs=100&choe=UTF-8&chld=H&chl={{ url('news', $item->id) }}" alt="QR link"/>
+                            {{ QrCode::size(150)->generate(url('news', $item->id)); }}
                             <div class="media-body screen-excerpt">
                                 <p>
                                     {{ $item->excerpt }}
