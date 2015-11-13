@@ -76,11 +76,11 @@
 @stop
 
 @section('script')
-    <script src="/assets/js/moment/moment.min.js"></script>
-    <script src="/assets/js/moment/nl.js"></script>
-    <script src="/assets/js/datetimepicker.min.js"></script>
-    <script src="/assets/js/wysihtml5/simple.js"></script>
-    <script src="/assets/js/wysihtml5/wysihtml5-0.4.0pre.min.js"></script>
+    <script src="/js/moment/moment.min.js"></script>
+    <script src="/js/moment/nl.js"></script>
+    <script src="/js/datetimepicker.min.js"></script>
+    <script src="/js/wysihtml5/simple.js"></script>
+    <script src="/js/wysihtml5/wysihtml5-0.4.0pre.min.js"></script>
     <script>
         $(function(){
             var editor = new wysihtml5.Editor("text", { // id of textarea element

@@ -44,7 +44,7 @@ class BaseNewsController extends Controller {
             {
                 $filename = $news->featured_image = Str::random(10) . '.' . $input['featured_image']->guessExtension();
 
-                $input['featured_image']->move(base_path('assets/uploads'), $filename);
+                $input['featured_image']->move(base_path('public/uploads'), $filename);
 
                 $news->featured_visible = true;
             }
@@ -85,7 +85,7 @@ class BaseNewsController extends Controller {
             {
                 $filename = $news->featured_image = Str::random(10) . '.' . $input['featured_image']->guessExtension();
 
-                $input['featured_image']->move(base_path('assets/uploads'), $filename);
+                $input['featured_image']->move(base_path('public/uploads'), $filename);
 
                 $news->featured_visible = true;
             }
