@@ -51,7 +51,7 @@ class Signup extends Eloquent {
             'student_number'    => 'required|numeric',
             'firstname'         => 'required|alpha_spaces|max:35', // Names don't have numbers in them
             'lastname'          => 'required|alpha_spaces|max:35',
-            'email'             => 'required|email|max:255'
+            'email'             => 'required|email|max:255|unique:signups,email'
         );
 
         return Validator::make($input, $rules);
