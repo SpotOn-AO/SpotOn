@@ -106,6 +106,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		//'Illuminate\Workbench\WorkbenchServiceProvider',
+		'SimpleSoftwareIO\QrCode\QrCodeServiceProvider',
 
         'Mews\Purifier\PurifierServiceProvider' // HTML Purifier
 	),
@@ -173,6 +174,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+		'QrCode'		  => 'SimpleSoftwareIO\QrCode\Facades\QrCode',
 
         'Purifier'        => 'Mews\Purifier\Facades\Purifier' // HTML Purifier
 	),

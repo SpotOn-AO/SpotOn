@@ -74,6 +74,7 @@ class Purifier {
 
             // Use the same character set as Laravel
             $config->set('Core.Encoding', Config::get('purifier::config.encoding'));
+            $config->set('Cache.SerializerPath', Config::get('purifier::config.cachePath'));
 
             if (is_array(Config::get('purifier::config.settings.default')))
             {
@@ -123,7 +124,7 @@ class Purifier {
             foreach ($dirty as $key => $value)
             {
                 // Recursively clean arrays
-                $clean[$key] = Purifier::clean($value);
+                $clean[$key] = Purifier::clean($value, $config);
             }
         }
         else

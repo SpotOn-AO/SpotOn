@@ -27,7 +27,7 @@
                     <div id="carousel-{{ $item->id }}" class="carousel slide pull-right hidden-xs">
                         <div class="carousel-inner">
                             <div class="item active text-center">
-                                <img src="http://chart.googleapis.com/chart?cht=qr&chs=150x150&choe=UTF-8&chld=H&chl={{ url($item->routeName, $item->id) }}" alt="QR link"/>
+                                {{ QrCode::size(150)->generate(url($item->routeName, $item->id)); }}
                             </div>
 
                             @if($item->featured_image && $item->featured_visible)
