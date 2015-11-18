@@ -74,6 +74,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         return Validator::make($input, $rules);
     }
 
+
+	public static function validateUpdate($input = array())
+    {
+        // No password validation.
+        // Password is created random
+        $rules = array(
+            'firstname' => 'required|alpha|max:35',
+            'lastname'  => 'required|alpha|max:35',
+            'email'     => 'required|email|max:255',
+            'group_id'  => 'required|exists:groups,id'
+        );
+
+        return Validator::make($input, $rules);
+    }
+
+
     /**
      * Get the Group of the User
      *

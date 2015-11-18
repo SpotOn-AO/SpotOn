@@ -149,7 +149,7 @@ class UserController extends \BaseController
 
 		$input = Input::all();
 
-        $validator = User::validate($input);
+        $validator = User::validateUpdate($input);
 
         if ($validator->passes())
         {
