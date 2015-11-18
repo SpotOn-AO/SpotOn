@@ -147,9 +147,9 @@
             $('#ends_at').datetimepicker();
 
             if(typeof $('#ends_at').data("DateTimePicker").date._i != "undefined")
-                $('#begins_at').data("DateTimePicker").setMinDate($('#ends_at').data("DateTimePicker").date);
+                $('#begins_at').data("DateTimePicker").setMaxDate($('#ends_at').data("DateTimePicker").date);
             if(typeof $('#begins_at').data("DateTimePicker").date._i != "undefined")
-                $('#ends_at').data("DateTimePicker").setMaxDate($('#begins_at').data("DateTimePicker").date);
+                $('#ends_at').data("DateTimePicker").setMinDate($('#begins_at').data("DateTimePicker").date);
 
             $("#begins_at").on("dp.change",function (e) {
                $('#ends_at').data("DateTimePicker").setMinDate(e.date);
