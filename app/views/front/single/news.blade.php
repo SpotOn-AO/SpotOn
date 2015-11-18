@@ -32,8 +32,8 @@
                 @endif
                 <p class="clearfix">
                     @if($news->featured_image && $news->featured_visible)
-                        <a title="Volledige grootte" class="side-image" target="_blank" href="/assets/uploads/{{ $news->featured_image }}">
-                            <img src="/assets/uploads/{{ $news->featured_image }}" alt="Featured image" />
+                        <a title="Volledige grootte" class="side-image" target="_blank" href="/uploads/{{ $news->featured_image }}">
+                            <img src="/uploads/{{ $news->featured_image }}" alt="Featured image" />
                         </a>
                     @endif
                     {{ $news->text }}

@@ -32,7 +32,7 @@
 
                             @if($item->featured_image && $item->featured_visible)
                                 <div class="item text-center">
-                                    <img src="/assets/uploads/{{ $item->featured_image }}" />
+                                    <img src="/uploads/{{ $item->featured_image }}" />
                                 </div>
                             @endif
                         </div>

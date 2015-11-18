@@ -23,9 +23,9 @@
         <b>Huidige afbeelding</b>
         <div class="thumbnail text-center">
             @if(isset($news) && $news->featured_image && $news->featured_visible)
-                <img class="img-responsive" src="/assets/uploads/{{ $news->featured_image }}" />
+                <img class="img-responsive" src="/uploads/{{ $news->featured_image }}" />
             @elseif(isset($workshop) && $workshop->featured_image && $workshop->featured_visible)
-                <img class="img-responsive" src="/assets/uploads/{{ $workshop->featured_image }}" />
+                <img class="img-responsive" src="/uploads/{{ $workshop->featured_image }}" />
             @else
                 <span class="glyphicon glyphicon-picture"></span>
                 Geen afbeelding
