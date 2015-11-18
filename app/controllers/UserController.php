@@ -107,6 +107,11 @@ class UserController extends \BaseController
         }
     }
 
+	/**
+     * Edits an user
+     *
+     * @return Response
+     */
 	public function edit($id)
 	{
 		$user = Auth::user();
@@ -127,6 +132,11 @@ class UserController extends \BaseController
         return View::make('back.user.edit', compact('edit_user', 'groups'));
 	}
 
+	/**
+     * Updates an user
+     *
+     * @return Response
+     */
 	public function update($id)
 	{
 		$user = Auth::user();
@@ -152,14 +162,39 @@ class UserController extends \BaseController
                 return Redirect::route('admin.users.edit')->withInput()->withErrors('Je mag geen gebruikers van type ' . $group->name . ' maken.');
             }
 
-			$user = $this->updateUser($user);
+			$user = $this->updateUser($edit_user);
+			$user->save();
+
+			return Redirect::route('admin.users.index')->withErrors('De gebruiker "' . $edit_user->firstname . ' ' . $edit_user->lastname . '" met het email adres "' . $edit_user->email . '" is succesvol aangepast.');
 		}
 		else
         {
-            return Redirect::route('admin.users.edit')->withInput()->withErrors($validator);
+            return Redirect::route('admin.users.index')->withInput()->withErrors($validator);
         }
 	}
 
+	/**
+     * Deletes an user
+     *
+     * @return Response
+     */
+	public function destroy($id)
+	{
+		$user = Auth::user();
+		$edit_user = User::findOrFail($id);
+
+		if(!$user->hasAccess('user.update.other'))
+		{
+			App::abort(403);
+		}
+
+		$redirect_string = 'De gebruiker "' . $edit_user->firstname . ' ' . $edit_user->lastname . '" met het email adres "' . $edit_user->email . '" is succesvol verwijderd.';
+
+		// Destroy the user
+		$edit_user->delete();
+
+		return Redirect::route('admin.users.index')->withErrors($redirect_string);
+	}
 
     /**
      * Log a User in

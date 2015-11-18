@@ -8,31 +8,20 @@ class BaseController extends Controller {
         $this->beforeFilter('csrf', array('on' => 'post'));
 	}
 
-	protected function updateUser($user)
+	protected function updateUser($id)
 	{
 		$input = Input::all();
-
-		// Sanitize text
-		$input['text'] = Purifier::clean($input['text']);
 
 		$validator = User::validate($input);
 
 		if($validator->passes())
 		{
-			// Fill without dates because those have to be converted
-			// manually.
-			$user->fill(array_except($input, array(
-				'firstname',
-				'lastname',
-				'email',
-				'group_id'
-			)));
+			// Fill $id with the values entered by the user
+			$id->fill($input);
 
-			return $user;
+			return $id;
 		}
 
 		return false;
 	}
-
-
 }

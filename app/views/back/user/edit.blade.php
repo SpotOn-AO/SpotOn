@@ -36,7 +36,7 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                {{ Form::label('firstname', 'Voornaam*') }}
+                {{ Form::label('firstname', 'Voornaam *') }}
                 {{ Form::text('firstname', null, array(
                     'class' => 'form-control',
                     'maxlength' => 35,
@@ -44,9 +44,10 @@
                 )) }}
             </div>
         </div>
+
         <div class="col-sm-6">
             <div class="form-group">
-                {{ Form::label('lastname', 'Achternaam*') }}
+                {{ Form::label('lastname', 'Achternaam *') }}
                 {{ Form::text('lastname', null, array(
                     'class' => 'form-control',
                     'maxlength' => 35,
@@ -57,13 +58,14 @@
     </div>
 
     <div class="form-group">
-        {{ Form::label('email', 'Email*') }}
+        {{ Form::label('email', 'E-mail *') }}
         {{ Form::email('email', null, array(
             'class' => 'form-control',
             'maxlength' => 255,
             'required'
         )) }}
     </div>
+
     <div class="form-group">
         {{ Form::label('group_id', 'Groep') }}
         {{ Form::select('group_id', $groups, null, array(
@@ -72,7 +74,7 @@
         )) }}
     </div>
 
-    {{ Form::submit('Maken', array(
+    {{ Form::submit('Aanpassen', array(
         'class' => 'btn btn-primary pull-right'
     )) }}
 
