@@ -30,6 +30,7 @@ $env = $app->detectEnvironment(array(
 	'mark' => array('Mighty-1', 'Zen-KwawK'),
 	'wesley' => array('DESKTOP-Wesley'),
 	'carlo' => array('PC_C_BOS'),
+	'development' => array('local-ubuntu'),
 
 ));
 

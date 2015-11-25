@@ -14,7 +14,11 @@
                 <td>{{{ $item->lastname }}}</td>
                 <td>{{{ $item->email }}}</td>
                 <td>{{ $item->group->name }}</td>
-				<td>{{ link_to_route('admin.users.edit', 'Aanpassen', array($item->id)) }}</td>
+                @if(Auth::id() != $item->id)
+				    <td>{{ link_to_route('admin.users.edit', 'Aanpassen', array($item->id)) }}</td>
+                @else
+                    <td></td>
+                @endif
             </tr>
         @endforeach
     </tbody>
