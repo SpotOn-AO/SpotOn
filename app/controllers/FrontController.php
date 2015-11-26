@@ -65,7 +65,7 @@ class FrontController extends BaseController {
                                 ->where('category_id', '=', 1)
                                 ->take(3)->get(),
             'workshops' => Workshop::visible()
-                                ->orderBy('begins_at', 'desc')
+                                ->orderBy('begins_at', 'asc')
                                 ->take(12)
                                 ->get(),
             'notes'     => News::visible()
@@ -179,7 +179,7 @@ class FrontController extends BaseController {
                                     ->get(),
                 'items' => Workshop::with('user')
                                     ->visible()
-                                    ->orderBy('begins_at', 'desc')
+                                    ->orderBy('ends_at', 'asc')
                                     ->paginate(12)
             ));
         }
